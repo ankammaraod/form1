@@ -9,7 +9,7 @@ const main = () => {
       property: 'name',
       description: 'Please enter your name : ',
       parse: (name) => name.trim(),
-      validate: (name) => name.length > 5
+      validate: (name) => name.length > 4
     },
     {
       property: 'dob',
@@ -21,7 +21,7 @@ const main = () => {
       property: 'hobbies',
       description: 'please enter your hobbies : ',
       parse: (hobbies) => hobbies.trim().split(','),
-      validate: (hobbies) => hobbies.length > 1
+      validate: (hobbies) => hobbies.length >= 1
     },
     {
       property: 'mobileNumber',
