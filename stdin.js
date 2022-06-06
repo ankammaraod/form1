@@ -1,5 +1,5 @@
 const { Data } = require('./data.js');
-
+const { validate } = require('./validation.js');
 const questions = [
   'enter you name : ',
   'enter you dob : ',
@@ -16,8 +16,11 @@ const main = () => {
   console.log(questions[index]);
 
   process.stdin.on('data', (chunk) => {
-    data.addInput(chunk.trim());
-    index++;
+
+    if (validate(keys[index], chunk)) {
+      data.addInput(chunk.trim());
+      index++;
+    }
 
     if (index >= questions.length) {
       console.log('thank you')
