@@ -1,72 +1,45 @@
-const display = (contents) => {
-  console.log(contents);
-}
+const { Iterator } = require('./iterator.js');
+const { formQuestions } = require('./questions.js');
+
+function processUserInput(chunk, formData, iterator) {
+  const parsedContent = iterator.currElement().parse(chunk);
+
+  if (iterator.currElement().validate(parsedContent)) {
+    const key = iterator.currElement().property;
+
+    if (formData[key]) {
+      formData[key] += '\n' + parsedContent;
+    } else {
+      formData[key] = parsedContent;
+    }
+
+    iterator.incrementIndex();
+  }
+  return formData;
+};
+
+const quitProcess = (formData) => {
+  console.clear();
+  console.log('Thank you');
+  console.log(formData);
+  process.exit(0);
+};
 
 const main = () => {
-  const formData = {};
-  const junk = [
-    {
-      property: 'name',
-      description: 'Please enter your name : ',
-      parse: (name) => name.trim(),
-      validate: (name) => name.length > 4
-    },
-    {
-      property: 'dob',
-      description: 'please enter your dob : ',
-      parse: (dob) => dob.trim(),
-      validate: (dob) => /\d\d\d\d-\d\d-\d\d/.test(dob)
-    },
-    {
-      property: 'hobbies',
-      description: 'please enter your hobbies : ',
-      parse: (hobbies) => hobbies.trim().split(','),
-      validate: (hobbies) => hobbies.length >= 1
-    },
-    {
-      property: 'mobileNumber',
-      description: 'please enter your mobile number : ',
-      parse: (number) => +number,
-      validate: (number) => ('' + number).length === 10
-    },
-    {
-      property: 'address1',
-      description: 'please enter address 1 : ',
-      parse: (add) => add.trim(),
-      validate: () => true
-    },
-    {
-      property: 'address1',
-      description: 'please enter your address 2 : ',
-      parse: (add) => add.trim(),
-      validate: () => true
-    }
-  ];
-
+  const questions = formQuestions();
+  let formData = {};
   process.stdin.setEncoding('utf8');
+  const iterator = new Iterator(questions);
 
-  let index = 0;
-  console.log(junk[index].description);
+  console.log(iterator.currElement().description, ':');
   process.stdin.on('data', (chunk) => {
-    const parsedContent = junk[index].parse(chunk);
+    formData = processUserInput(chunk, formData, iterator);
 
-    if (junk[index].validate(parsedContent)) {
-      const key = junk[index].property;
-      if (formData[key]) {
-        formData[key] += ', ' + parsedContent;
-      } else {
-        formData[key] = parsedContent;
-      }
-      index++;
+    if (iterator.areQueriesOver()) {
+      quitProcess(formData);
     }
-
-    if (index >= junk.length) {
-      console.log('thank you')
-      display(formData);
-      process.exit(0);
-    }
-    console.log(junk[index].description);
+    console.log(iterator.currElement().description, ':');
   })
-}
+};
 
 main()

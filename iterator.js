@@ -10,5 +10,11 @@ class Iterator {
   incrementIndex() {
     this.index++;
   }
+  getIndex() {
+    return this.index;
+  }
+  areQueriesOver() {
+    return this.index >= this.list.length;
+  }
 }
 exports.Iterator = Iterator;
