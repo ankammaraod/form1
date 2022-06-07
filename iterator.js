@@ -7,12 +7,12 @@ class Iterator {
   currElement() {
     return this.list[this.index];
   }
-  incrementIndex() {
+
+  nextElement() {
     this.index++;
+    return this.currElement();
   }
-  getIndex() {
-    return this.index;
-  }
+
   areQueriesOver() {
     return this.index >= this.list.length;
   }

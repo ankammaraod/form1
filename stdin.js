@@ -5,15 +5,15 @@ function processUserInput(chunk, formData, iterator) {
   const parsedContent = iterator.currElement().parse(chunk);
 
   if (iterator.currElement().validate(parsedContent)) {
-    const key = iterator.currElement().property;
+    const property = iterator.currElement().property;
 
-    if (formData[key]) {
-      formData[key] += '\n' + parsedContent;
-    } else {
-      formData[key] = parsedContent;
+    if (formData[property]) {
+      formData[property] += '\n' + parsedContent;
     }
-
-    iterator.incrementIndex();
+    else {
+      formData[property] = parsedContent;
+    }
+    iterator.nextElement();
   }
   return formData;
 };
