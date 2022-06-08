@@ -4,6 +4,8 @@ function processUserResponse(response, form, logger, callBack) {
 
   if (form.fillCurrentField(response)) {
     form.nextPrompt();
+  } else {
+    console.log('Invalid response')
   }
 
   if (form.areQueriesOver()) {
