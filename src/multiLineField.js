@@ -1,7 +1,7 @@
 class MultiLineField {
-  constructor(property, descs, parser, validator) {
+  constructor(property, descriptions, parser, validator) {
     this.property = property;
-    this.desc = descs;
+    this.desc = descriptions;
     this.parser = parser;
     this.validator = validator;
     this.response = [];
