@@ -1,0 +1,25 @@
+{
+  "devDependencies": {
+    "mocha": "^10.0.0"
+  },
+  "name": "stdin",
+  "version": "1.0.0",
+  "main": "fillForm.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": " bash ./test/testFillForm.sh && mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ankammaraod/form1.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ankammaraod/form1/issues"
+  },
+  "homepage": "https://github.com/ankammaraod/form1#readme",
+  "description": ""
+}

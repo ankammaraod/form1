@@ -1,3 +1,5 @@
+#! /bin/bash
+
 FAILED='❌'
 PASSED='✅'
 
@@ -28,12 +30,14 @@ ankammarao
 2001-12-14
 eating,sleeping
 9701679541
+rama_street
+pandrapadu
 eof
 );
 
-  expectedPrompts="Please enter your name : Please enter your dob : Please enter your hobbies : Please enter your mobile number : Thank you"
+  expectedPrompts="Please enter your name : Please enter your dob : Please enter your hobbies : Please enter your mobile number : Please enter your address 1 : Please enter your address 2 : Thank you"
   assert "$prompts" "$expectedPrompts" "prompts"
-  expectedResponses='{"name":"ankammarao","dob":"2001-12-14","hobbies":["eating","sleeping"],"mobileNumber":"9701679541"}'
+  expectedResponses='{"name":"ankammarao","dob":"2001-12-14","hobbies":["eating","sleeping"],"mobileNumber":"9701679541","address":"rama_street\npandrapadu"}'
   assert `cat ./form.json` "$expectedResponses" "filled contents"
 }
 
