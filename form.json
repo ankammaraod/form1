@@ -1,1 +1,10 @@
-{"name":"ankammarao","dob":"2001-12-14","hobbies":["eating","sleeping"],"mobileNumber":"9701679541"}
+{
+  "name": "ankammarao",
+  "dob": "1111-11-11",
+  "hobbies": [
+    "a",
+    "b"
+  ],
+  "mobileNumber": "4444444444",
+  "address": "ram\npandrapadu"
+}

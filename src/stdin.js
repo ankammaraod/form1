@@ -1,19 +1,18 @@
 const { Form } = require('./form.js')
 
-function processUserResponse(response, form, logger, callBack) {
+const registerResponse = (response, form, logger, callBack) => {
 
-  if (form.fillCurrentField(response)) {
-    form.nextPrompt();
-  } else {
-    console.log('Invalid response')
+  if (!form.fillCurrentField(response)) {
+    logger('Invalid response');
   }
 
   if (form.areQueriesOver()) {
     logger('Thank you');
     callBack(form.getEntries());
-    process.exit(0);
+    process.stdin.destroy();
+    return;
   }
   logger(form.currPrompt());
 };
 
-module.exports = { processUserResponse };
+module.exports = { registerResponse };

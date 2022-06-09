@@ -16,13 +16,13 @@ describe('Form', () => {
 
   it('should give next prompt', () => {
     const form = new Form([nameField, dobField]);
-    form.nextPrompt()
+    form.fillCurrentField('ankamma');
     assert.deepStrictEqual(form.currPrompt(), 'enter your dob : ');
   });
 
   it('should return true if quries are over', () => {
     const form = new Form([nameField]);
-    form.nextPrompt();
+    form.fillCurrentField('ankamma');
     assert.deepStrictEqual(form.areQueriesOver(), true);
   });
 

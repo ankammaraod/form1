@@ -10,12 +10,8 @@ class Form {
     return this.#fields[this.#currentIndex].getDescription();
   }
 
-  nextPrompt() {
-    this.#currentIndex++;
-  }
-
   areQueriesOver() {
-    return this.#currentIndex === this.#fields.length;
+    return this.#fields.every(field => field.isFilled());
   }
 
   getEntries() {
@@ -24,12 +20,15 @@ class Form {
       entries[property] = this.#fields[index].parser(response);
     })
     return entries;
-
   }
 
   fillCurrentField(response) {
-    if (this.#fields[this.#currentIndex].validate(response)) {
-      this.#fields[this.#currentIndex].fill(response);
+    const currentField = this.#fields[this.#currentIndex];
+    if (currentField.validate(response)) {
+      currentField.fill(response);
+      if (currentField.isFilled()) {
+        this.#currentIndex++;
+      }
       return true;
     }
   };

@@ -1,3 +1,5 @@
+const { MultiLineField } = require('./multiLineField.js');
+
 const trim = (content) => content.trim();
 
 const parseHobbies = (hobbies) => trim(hobbies).split(',');
@@ -33,18 +35,28 @@ class Field {
     return this.validator(response);
   }
 
+  isFilled() {
+    return this.response;
+  }
+
   parse(content) {
     return this.parser(content);
   }
 
 }
+const addressParser = (contents) => contents.join('\n');
 
 const createFields = () => {
   const nameField = new Field('name', 'Please enter your name', identity, validateName);
   const dobField = new Field('dob', 'Please enter your dob', identity, validateDate);
   const hobbiesField = new Field('hobbies', 'Please enter your hobbies', parseHobbies, isLenNotZero);
   const mobileNumber = new Field('mobileNumber', 'Please enter your mobile number', identity, isLenTen);
-  return [nameField, dobField, hobbiesField, mobileNumber];
+
+  const multiLineField = new MultiLineField('address',
+    ['Please enter your address 1', 'Please enter your address 2'],
+    addressParser, x => true);
+
+  return [nameField, dobField, hobbiesField, mobileNumber, multiLineField];
 };
 
 module.exports = { createFields, Field };
